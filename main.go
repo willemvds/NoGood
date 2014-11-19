@@ -36,7 +36,7 @@ func main() {
 	if err != nil {
 		fmt.Println("font error:", err)
 	}
-	textsurf := f.RenderText_Blended("No Good", sdl.Color{230,230,230,255})
+	textsurf := f.RenderText_Blended("No Good", sdl.Color{230, 230, 230, 255})
 	fmt.Println(textsurf)
 
 	texttex := renderer.CreateTextureFromSurface(textsurf)
@@ -52,9 +52,9 @@ func main() {
 			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				running = false
-//			case *sdl.MouseMotionEvent:
-//				fmt.Printf("[%d ms] MouseMotion\ttype:%d\tid:%d\tx:%d\ty:%d\txrel:%d\tyrel:%d\n",
-//					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.XRel, t.YRel)
+				//			case *sdl.MouseMotionEvent:
+				//				fmt.Printf("[%d ms] MouseMotion\ttype:%d\tid:%d\tx:%d\ty:%d\txrel:%d\tyrel:%d\n",
+				//					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.XRel, t.YRel)
 			case *sdl.MouseButtonEvent:
 				fmt.Printf("[%d ms] MouseButton\ttype:%d\tid:%d\tx:%d\ty:%d\tbutton:%d\tstate:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.Button, t.State)
