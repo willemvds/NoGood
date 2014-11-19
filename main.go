@@ -6,6 +6,8 @@ import (
 
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/sdl_ttf"
+
+	"github.com/willemvds/nogood/ui"
 )
 
 var winTitle string = "No Good"
@@ -43,12 +45,20 @@ func main() {
 	fmt.Println(f.Height())
 	textrect := sdl.Rect{100, 100, 56, 20}
 
+	uielements := make([]ui.Element, 0)
+	tv := ui.NewTextView(200, 200, 100, 20)
+	print(tv)
+	uielements = append(uielements, tv)
+
 	running = true
 	for running {
 		renderer.Clear()
 		renderer.Copy(texttex, nil, &textrect)
 		renderer.Present()
 		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+			for _, element := range uielements {
+				element.HandleEvent(event)
+			}
 			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				running = false
