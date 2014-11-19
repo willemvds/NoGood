@@ -32,20 +32,21 @@ func main() {
 	}
 
 	ttf.Init()
-	f, err := ttf.OpenFont("assets/roboto/Roboto-Regular.ttf", 12)
+	f, err := ttf.OpenFont("assets/roboto/Roboto-Regular.ttf", 14)
 	if err != nil {
 		fmt.Println("font error:", err)
 	}
-	textsurf := f.RenderText_Solid("No Good", sdl.Color{200,200,200,128})
+	textsurf := f.RenderText_Blended("No Good", sdl.Color{230,230,230,255})
 	fmt.Println(textsurf)
 
 	texttex := renderer.CreateTextureFromSurface(textsurf)
-	//textrect := sdl.Rect{0, 0, 128, 32}
+	fmt.Println(f.Height())
+	textrect := sdl.Rect{100, 100, 56, 20}
 
 	running = true
 	for running {
 		renderer.Clear()
-		renderer.Copy(texttex, nil, nil)
+		renderer.Copy(texttex, nil, &textrect)
 		renderer.Present()
 		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
