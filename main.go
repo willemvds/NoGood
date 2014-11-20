@@ -61,9 +61,6 @@ func main() {
 
 		renderer.Present()
 		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			for _, element := range uielements {
-				element.HandleEvent(event)
-			}
 			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				running = false
@@ -73,6 +70,13 @@ func main() {
 			case *sdl.MouseButtonEvent:
 				fmt.Printf("[%d ms] MouseButton\ttype:%d\tid:%d\tx:%d\ty:%d\tbutton:%d\tstate:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.Button, t.State)
+				for _, element := range uielements {
+					if t.X >= int32(element.X()) && t.X <= int32(element.X()+element.Width()) &&
+						t.Y >= int32(element.Y()) && t.Y <= int32(element.Y()+element.Height()) {
+						element.HandleEvent(event)
+					}
+
+				}
 			case *sdl.MouseWheelEvent:
 				fmt.Printf("[%d ms] MouseWheel\ttype:%d\tid:%d\tx:%d\ty:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y)
