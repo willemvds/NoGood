@@ -7,7 +7,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/sdl_ttf"
 
-	"github.com/willemvds/nogood/ui"
+	"github.com/willemvds/NoGood/ui"
 )
 
 var winTitle string = "No Good"
@@ -54,6 +54,11 @@ func main() {
 	for running {
 		renderer.Clear()
 		renderer.Copy(texttex, nil, &textrect)
+
+		for _, element := range uielements {
+			element.Draw(renderer)
+		}
+
 		renderer.Present()
 		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			for _, element := range uielements {
@@ -62,9 +67,9 @@ func main() {
 			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				running = false
-				//			case *sdl.MouseMotionEvent:
-				//				fmt.Printf("[%d ms] MouseMotion\ttype:%d\tid:%d\tx:%d\ty:%d\txrel:%d\tyrel:%d\n",
-				//					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.XRel, t.YRel)
+			//	case *sdl.MouseMotionEvent:
+			//	fmt.Printf("[%d ms] MouseMotion\ttype:%d\tid:%d\tx:%d\ty:%d\txrel:%d\tyrel:%d\n",
+			//	t.Timestamp, t.Type, t.Which, t.X, t.Y, t.XRel, t.YRel)
 			case *sdl.MouseButtonEvent:
 				fmt.Printf("[%d ms] MouseButton\ttype:%d\tid:%d\tx:%d\ty:%d\tbutton:%d\tstate:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y, t.Button, t.State)

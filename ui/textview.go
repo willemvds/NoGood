@@ -16,5 +16,12 @@ func NewTextView(x, y, w, h int) *TextView {
 }
 
 func (tv *TextView) HandleEvent(ev sdl.Event) {
-	print("got event, did nothing, good day. ")
+	print("[textview] got event, did nothing, good day.\n")
+}
+
+func (tv *TextView) Draw(r *sdl.Renderer) {
+	rect := sdl.Rect{int32(tv.x), int32(tv.y), int32(tv.width), int32(tv.height)}
+	r.SetDrawColor(0, 255, 0, 255)
+	r.FillRect(&rect)
+	r.SetDrawColor(0, 0, 0, 255)
 }

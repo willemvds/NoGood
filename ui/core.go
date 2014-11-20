@@ -11,6 +11,7 @@ type Element interface {
 	Height() int
 	//Parent() Element
 	HandleEvent(sdl.Event)
+	Draw(r *sdl.Renderer)
 }
 
 type Region struct {
