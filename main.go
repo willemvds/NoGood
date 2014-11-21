@@ -50,6 +50,9 @@ func main() {
 	print(tv)
 	uielements = append(uielements, tv)
 
+	button := ui.NewButton(10, 10, 80, 18)
+	uielements = append(uielements, button)
+
 	running = true
 	for running {
 		renderer.Clear()
