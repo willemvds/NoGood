@@ -53,6 +53,9 @@ func main() {
 	button := ui.NewButton(10, 10, 80, 18)
 	uielements = append(uielements, button)
 
+	textbutton := ui.NewTextButton(10, 100, 80, 18)
+	uielements = append(uielements, textbutton)
+
 	running = true
 	for running {
 		renderer.Clear()
