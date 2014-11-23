@@ -39,16 +39,19 @@ func main() {
 		fmt.Println("font error:", err)
 	}
 	textsurf := f.RenderText_Blended("No Good", sdl.Color{230, 230, 230, 255})
-	fmt.Println(textsurf)
-
 	texttex := renderer.CreateTextureFromSurface(textsurf)
-	fmt.Println(f.Height())
 	textrect := sdl.Rect{100, 100, 56, 20}
+
+	textsurf2 := f.RenderText_Blended("A long long time ago. Text wasn't this ugly.", sdl.Color{0, 0, 0, 255})
+	texttex2 := renderer.CreateTextureFromSurface(textsurf2)
+	textrect2 := sdl.Rect{200, 350, 400, 20}
 
 	uielements := make([]ui.Element, 0)
 	tv := ui.NewTextView(200, 200, 100, 20)
-	print(tv)
 	uielements = append(uielements, tv)
+
+	tv2 := ui.NewTextView(200, 300, 500, 200)
+	uielements = append(uielements, tv2)
 
 	button := ui.NewButton(10, 10, 80, 18)
 	uielements = append(uielements, button)
@@ -61,9 +64,11 @@ func main() {
 		renderer.Clear()
 		renderer.Copy(texttex, nil, &textrect)
 
+
 		for _, element := range uielements {
 			element.Draw(renderer)
 		}
+		renderer.Copy(texttex2, nil, &textrect2)
 
 		renderer.Present()
 		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
