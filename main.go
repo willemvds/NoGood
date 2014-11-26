@@ -66,7 +66,6 @@ func main() {
 		renderer.Clear()
 		renderer.Copy(texttex, nil, &textrect)
 
-
 		for _, element := range uielements {
 			element.Draw(renderer)
 		}
@@ -96,6 +95,7 @@ func main() {
 			case *sdl.KeyUpEvent:
 				fmt.Printf("[%d ms] Keyboard\ttype:%d\tsym:%c\tmodifiers:%d\tstate:%d\trepeat:%d\n",
 					t.Timestamp, t.Type, t.Keysym.Sym, t.Keysym.Mod, t.State, t.Repeat)
+				tv2.HandleEvent(event)
 			}
 		}
 	}

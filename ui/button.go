@@ -25,4 +25,3 @@ func (b *Button) Draw(r *sdl.Renderer) {
 	r.FillRect(&rect)
 	r.SetDrawColor(0, 0, 0, 255)
 }
-

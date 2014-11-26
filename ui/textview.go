@@ -20,7 +20,11 @@ func NewTextView(x, y, w, h int) *TextView {
 }
 
 func (tv *TextView) HandleEvent(ev sdl.Event) {
-	print("[textview] got event, did nothing, good day.\n")
+	print("[textview] got event\n")
+	switch t := ev.(type) {
+	case *sdl.KeyUpEvent:
+		tv.Text = tv.Text + string(t.Keysym.Sym)
+	}
 }
 
 func (tv *TextView) Draw(r *sdl.Renderer) {
