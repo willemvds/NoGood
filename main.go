@@ -5,13 +5,13 @@ import (
 	"os"
 
 	"github.com/veandco/go-sdl2/sdl"
-	"github.com/veandco/go-sdl2/sdl_ttf"
+	"github.com/veandco/go-sdl2/ttf"
 
 	"github.com/willemvds/NoGood/ui"
 )
 
 var winTitle string = "No Good"
-var winWidth, winHeight int = 800, 600
+var winWidth, winHeight int32 = 800, 600
 
 func main() {
 	var window *sdl.Window
@@ -21,13 +21,13 @@ func main() {
 
 	sdl.Init(sdl.INIT_VIDEO)
 
-	window = sdl.CreateWindow(winTitle, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, winWidth, winHeight, sdl.WINDOW_SHOWN)
+	window, _ = sdl.CreateWindow(winTitle, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, winWidth, winHeight, sdl.WINDOW_SHOWN)
 	if window == nil {
 		fmt.Fprintf(os.Stderr, "Failed to create window: %s\n", sdl.GetError())
 		os.Exit(1)
 	}
 
-	renderer = sdl.CreateRenderer(window, -1, sdl.RENDERER_ACCELERATED)
+	renderer, _ = sdl.CreateRenderer(window, -1, sdl.RENDERER_ACCELERATED)
 	if renderer == nil {
 		fmt.Fprintf(os.Stderr, "Failed to create renderer: %s\n", sdl.GetError())
 		os.Exit(2)
@@ -38,8 +38,8 @@ func main() {
 	if err != nil {
 		fmt.Println("font error:", err)
 	}
-	textsurf := f.RenderText_Blended("No Good", sdl.Color{230, 230, 230, 255})
-	texttex := renderer.CreateTextureFromSurface(textsurf)
+	textsurf, _ := f.RenderUTF8Blended("No Good", sdl.Color{230, 230, 230, 255})
+	texttex, _ := renderer.CreateTextureFromSurface(textsurf)
 	textrect := sdl.Rect{100, 100, 56, 20}
 
 	//textsurf2 := f.RenderText_Blended("A long long time ago. Text wasn't this ugly.", sdl.Color{0, 0, 0, 255})
@@ -92,7 +92,7 @@ func main() {
 			case *sdl.MouseWheelEvent:
 				fmt.Printf("[%d ms] MouseWheel\ttype:%d\tid:%d\tx:%d\ty:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y)
-			case *sdl.KeyUpEvent:
+			case *sdl.KeyboardEvent:
 				fmt.Printf("[%d ms] Keyboard\ttype:%d\tsym:%c\tmodifiers:%d\tstate:%d\trepeat:%d\n",
 					t.Timestamp, t.Type, t.Keysym.Sym, t.Keysym.Mod, t.State, t.Repeat)
 				tv2.HandleEvent(event)
